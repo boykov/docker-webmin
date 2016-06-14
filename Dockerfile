@@ -1,5 +1,5 @@
-FROM debian:jessie
-MAINTAINER Sita Liu <chsliu+docker@gmail>
+FROM ubuntu:16.04
+MAINTAINER Kawin Viriyaprasopsook <bouroo@gmail>
 
 
 RUN echo root:pass | chpasswd && \
@@ -13,11 +13,11 @@ RUN echo root:pass | chpasswd && \
 	/usr/sbin/update-locale LANG=C.UTF-8 && \
 	wget http://www.webmin.com/jcameron-key.asc && \
 	apt-key add jcameron-key.asc && \
-	echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list && \
-	echo "deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib" >> /etc/apt/sources.list && \
+	echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list.d/webmin.list && \
 	apt-get update && \
-	apt-get install -y webmin && \
-	apt-get clean
+	apt-get dist-upgrade -y && \
+	apt-get install -y webmin ntpdate && \
+	apt-get autoclean
 
 
 ENV LC_ALL C.UTF-8
