@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Kawin Viriyaprasopsook <bouroo@gmail>
+MAINTAINER bouroo <bouroo@gmail.com>
 
 
 RUN echo root:pass | chpasswd && \
@@ -11,13 +11,12 @@ RUN echo root:pass | chpasswd && \
 	dpkg-reconfigure locales && \
 	locale-gen C.UTF-8 && \
 	/usr/sbin/update-locale LANG=C.UTF-8 && \
-	wget http://www.webmin.com/jcameron-key.asc && \
-	apt-key add jcameron-key.asc && \
-	echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list.d/webmin.list && \
+	wget http://www.webmin.com/jcameron-key.asc -O - | apt-key add - \
+	echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list.d/webmin.list \
 	apt-get update && \
-	apt-get dist-upgrade -y && \
+	apt-get dist-upgrade -y \
 	apt-get install -y webmin ntpdate && \
-	apt-get autoclean
+	apt-get clean
 
 
 ENV LC_ALL C.UTF-8
