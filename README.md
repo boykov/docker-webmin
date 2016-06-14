@@ -10,7 +10,7 @@ docker build -t zercle/webmin .
 
 ## Running the container
 ```
-docker run -d -p 10000:10000 zercle/webmin
+docker run -d -p 10000:10000 --restart=always zercle/webmin
 ```
 
 Log into webmin and manage your server
